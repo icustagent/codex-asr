@@ -50,6 +50,13 @@ OpenAI SDK 指向本机 `codex-asr serve`。
 
 ## 安装
 
+### Homebrew
+
+```bash
+brew tap wangnov/tap
+brew install codex-asr
+```
+
 ### cargo-binstall
 
 ```bash
@@ -350,6 +357,13 @@ existing OpenAI SDK clients at `codex-asr serve` on localhost.
 - You accept that this is a reverse-engineered local automation surface, not an official API
 
 ## Install
+
+### Homebrew
+
+```bash
+brew tap wangnov/tap
+brew install codex-asr
+```
 
 ### cargo-binstall
 
