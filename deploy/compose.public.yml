@@ -18,8 +18,8 @@ services:
       - /run/secrets/codex_auth
       - --concurrency
       - ${CODEX_ASR_CONCURRENCY:-16}
-    secrets:
-      - codex_auth
+    volumes:
+      - ${CODEX_ASR_AUTH_FILE:?set CODEX_ASR_AUTH_FILE}:/run/secrets/codex_auth:ro
 
   caddy:
     image: caddy:2-alpine
@@ -35,10 +35,6 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-
-secrets:
-  codex_auth:
-    file: ${CODEX_ASR_AUTH_FILE:?set CODEX_ASR_AUTH_FILE}
 
 volumes:
   caddy_data:

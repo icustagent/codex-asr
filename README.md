@@ -184,8 +184,11 @@ REST 字段兼容范围：
 - 域名 A/AAAA 记录已经指向服务器
 - 服务器公网防火墙放行 80 和 443
 - 服务器上已有可用的 Codex / ChatGPT auth 文件
+- 已准备一个容器用户可读的 auth 副本
 
 ```bash
+sudo install -d -m 750 /opt/codex-asr
+sudo install -o 10001 -g 65534 -m 0400 ~/.codex/auth.json /opt/codex-asr/auth.json
 cp deploy/env.public.example deploy/.env
 $EDITOR deploy/.env
 docker compose --env-file deploy/.env -f deploy/compose.public.yml up -d
@@ -195,7 +198,7 @@ docker compose --env-file deploy/.env -f deploy/compose.public.yml up -d
 
 ```bash
 CODEX_ASR_DOMAIN=asr.example.com
-CODEX_ASR_AUTH_FILE=/absolute/path/to/codex-auth.json
+CODEX_ASR_AUTH_FILE=/opt/codex-asr/auth.json
 CODEX_ASR_SERVER_KEY=replace-with-a-long-random-api-key
 ```
 
@@ -547,8 +550,11 @@ Prerequisites:
 - The domain A/AAAA record points at the server
 - The server firewall allows ports 80 and 443
 - A usable Codex / ChatGPT auth file exists on the server
+- A container-readable auth copy has been prepared
 
 ```bash
+sudo install -d -m 750 /opt/codex-asr
+sudo install -o 10001 -g 65534 -m 0400 ~/.codex/auth.json /opt/codex-asr/auth.json
 cp deploy/env.public.example deploy/.env
 $EDITOR deploy/.env
 docker compose --env-file deploy/.env -f deploy/compose.public.yml up -d
@@ -558,7 +564,7 @@ Set at least these values in `deploy/.env`:
 
 ```bash
 CODEX_ASR_DOMAIN=asr.example.com
-CODEX_ASR_AUTH_FILE=/absolute/path/to/codex-auth.json
+CODEX_ASR_AUTH_FILE=/opt/codex-asr/auth.json
 CODEX_ASR_SERVER_KEY=replace-with-a-long-random-api-key
 ```
 
