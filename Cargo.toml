@@ -12,6 +12,15 @@ documentation = "https://docs.rs/codex-asr"
 keywords = ["codex", "asr", "speech", "transcription", "chatgpt"]
 categories = ["command-line-utilities", "api-bindings"]
 
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ target }{ archive-suffix }"
+bin-dir = "{ name }-{ target }/{ bin }{ binary-ext }"
+pkg-fmt = "txz"
+
+[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
+bin-dir = "{ bin }{ binary-ext }"
+pkg-fmt = "zip"
+
 [features]
 default = ["server"]
 server = ["dep:axum", "dep:tokio"]

@@ -26,13 +26,7 @@ REST server backed by it, to the public internet.
 - This endpoint is reverse-engineered from Codex Desktop behavior and may change
   without notice.
 
-## Install From Source
-
-```bash
-cargo install --path .
-```
-
-When published:
+## Install
 
 ```bash
 cargo install codex-asr
@@ -50,6 +44,19 @@ PowerShell:
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://github.com/wangnov/codex-asr/releases/download/v0.1.0/codex-asr-installer.ps1 | iex"
+```
+
+`cargo-binstall` metadata is configured for releases after `v0.1.0`, so future
+published versions can install the matching GitHub Release binary directly:
+
+```bash
+cargo binstall codex-asr
+```
+
+From this checkout:
+
+```bash
+cargo install --path .
 ```
 
 Library consumers that do not need the local REST server can avoid the Axum/Tokio
