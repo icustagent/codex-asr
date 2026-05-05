@@ -38,6 +38,20 @@ When published:
 cargo install codex-asr
 ```
 
+GitHub Release installers are generated with `cargo-dist`:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/wangnov/codex-asr/releases/download/v0.1.0/codex-asr-installer.sh \
+  | sh
+```
+
+PowerShell:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://github.com/wangnov/codex-asr/releases/download/v0.1.0/codex-asr-installer.ps1 | iex"
+```
+
 Library consumers that do not need the local REST server can avoid the Axum/Tokio
 server dependencies:
 
