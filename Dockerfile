@@ -2,6 +2,8 @@
 
 FROM rust:1-bookworm AS builder
 
+ARG RUST_SILK_VERSION=0.1.3
+
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
@@ -12,6 +14,10 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
     cargo build --release --locked --bin codex-asr && \
     cp /app/target/release/codex-asr /usr/local/bin/codex-asr
 
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/usr/local/cargo/git \
+    cargo install rust-silk --version "${RUST_SILK_VERSION}" --locked --root /usr/local
+
 FROM debian:bookworm-slim AS runtime
 
 RUN apt-get update && \
@@ -20,7 +26,9 @@ RUN apt-get update && \
     useradd --system --uid 10001 --gid nogroup --home-dir /nonexistent --shell /usr/sbin/nologin codex-asr
 
 COPY --from=builder /usr/local/bin/codex-asr /usr/local/bin/codex-asr
+COPY --from=builder /usr/local/bin/rust-silk /usr/local/bin/rust-silk
 
+ENV CODEX_ASR_SILK_DECODER=/usr/local/bin/rust-silk
 USER 10001:65534
 EXPOSE 8788
 

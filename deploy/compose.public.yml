@@ -7,7 +7,7 @@ services:
     environment:
       CODEX_ASR_SERVER_KEY: ${CODEX_ASR_SERVER_KEY:?set CODEX_ASR_SERVER_KEY}
       CODEX_ASR_PROXY: ${CODEX_ASR_PROXY:-}
-      CODEX_ASR_SILK_DECODER: ${CODEX_ASR_SILK_DECODER:-}
+      CODEX_ASR_SILK_DECODER: ${CODEX_ASR_SILK_DECODER:-/usr/local/bin/rust-silk}
     command:
       - serve
       - --host

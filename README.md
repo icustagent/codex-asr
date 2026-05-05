@@ -97,6 +97,7 @@ docker run --rm ghcr.io/wangnov/codex-asr:latest --version
 ```
 
 `main` 分支会通过 GitHub Actions 发布 `latest` 和当前 crate 版本标签。
+Docker 镜像默认内置 `rust-silk`，路径是 `/usr/local/bin/rust-silk`。
 
 ### 从当前源码安装
 
@@ -209,8 +210,9 @@ curl https://asr.example.com/v1/audio/transcriptions \
   -F file=@audio.wav
 ```
 
-如果容器里也要处理 `.silk` / 微信语音，需要额外把外部 `rust-silk` CLI 挂进容器，
-并设置 `CODEX_ASR_SILK_DECODER` 指向容器内路径。
+Docker 镜像默认内置 `rust-silk`，所以 `.silk` / 微信语音会在容器内先解码成
+临时 WAV 再上传。只有要替换成自定义解码器时，才需要覆盖
+`CODEX_ASR_SILK_DECODER`。
 
 ## 命令说明
 
@@ -273,7 +275,7 @@ codex-asr audio.wav --bearer "$TOKEN" --account-id acct_...
 | `CODEX_ASR_BEARER` | 默认 bearer token |
 | `CODEX_ASR_SERVER_KEY` | 本地 REST API key |
 | `CODEX_ASR_PROXY` | HTTPS 代理 |
-| `CODEX_ASR_SILK_DECODER` | 外部 `rust-silk` CLI 路径 |
+| `CODEX_ASR_SILK_DECODER` | 外部 `rust-silk` CLI 路径；Docker 镜像默认 `/usr/local/bin/rust-silk` |
 
 ## 它会改什么
 
@@ -365,7 +367,7 @@ println!("{}", result.text);
 - CLI 和 library 支持 macOS、Linux、Windows
 - Release 二进制覆盖 Apple Silicon macOS、Intel macOS、Linux x64、Linux ARM64、Windows x64
 - `serve` 功能默认开启；作为库使用时可通过 `default-features = false` 关闭
-- SILK 支持依赖外部 `rust-silk` CLI，不内置解码器
+- SILK 支持依赖外部 `rust-silk` CLI；普通二进制不内置解码器，Docker 镜像默认内置
 
 ## 从源码运行
 
@@ -456,6 +458,7 @@ docker run --rm ghcr.io/wangnov/codex-asr:latest --version
 
 The `main` branch publishes `latest` and the current crate-version tag through
 GitHub Actions.
+Docker images include `rust-silk` at `/usr/local/bin/rust-silk` by default.
 
 ### From this checkout
 
@@ -570,9 +573,9 @@ curl https://asr.example.com/v1/audio/transcriptions \
   -F file=@audio.wav
 ```
 
-To process `.silk` / WeChat voice files inside Docker, mount an external
-`rust-silk` CLI into the container and set `CODEX_ASR_SILK_DECODER` to its
-container path.
+Docker images include `rust-silk` by default, so `.silk` / WeChat voice files
+are decoded to temporary WAV inside the container before upload. Override
+`CODEX_ASR_SILK_DECODER` only when you want to use a custom decoder.
 
 ## Commands
 
@@ -635,7 +638,7 @@ Environment variables:
 | `CODEX_ASR_BEARER` | default bearer token |
 | `CODEX_ASR_SERVER_KEY` | local REST API key |
 | `CODEX_ASR_PROXY` | HTTPS proxy |
-| `CODEX_ASR_SILK_DECODER` | external `rust-silk` CLI path |
+| `CODEX_ASR_SILK_DECODER` | external `rust-silk` CLI path; Docker defaults to `/usr/local/bin/rust-silk` |
 
 ## What it changes
 
@@ -730,7 +733,7 @@ println!("{}", result.text);
 - CLI and library support macOS, Linux, and Windows
 - Prebuilt binaries are published for Apple Silicon macOS, Intel macOS, Linux x64, Linux ARM64, and Windows x64
 - `serve` is enabled by default; library users can disable it with `default-features = false`
-- SILK support depends on an external `rust-silk` CLI; no decoder is bundled
+- SILK support depends on an external `rust-silk` CLI; regular binaries do not bundle a decoder, while Docker images include one by default
 
 ## Run from source
 
