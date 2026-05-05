@@ -96,7 +96,8 @@ docker pull ghcr.io/wangnov/codex-asr:latest
 docker run --rm ghcr.io/wangnov/codex-asr:latest --version
 ```
 
-`main` 分支会通过 GitHub Actions 发布 `latest` 和当前 crate 版本标签。
+`main` 分支会通过 GitHub Actions 发布 `latest`、`main` 和 `sha-*`
+标签；正式 release tag 会额外发布 `vX.Y.Z`、`X.Y.Z` 和 `X.Y` 标签。
 Docker 镜像默认内置 `rust-silk`，路径是 `/usr/local/bin/rust-silk`。
 
 ### 从当前源码安装
@@ -469,8 +470,8 @@ docker pull ghcr.io/wangnov/codex-asr:latest
 docker run --rm ghcr.io/wangnov/codex-asr:latest --version
 ```
 
-The `main` branch publishes `latest` and the current crate-version tag through
-GitHub Actions.
+The `main` branch publishes `latest`, `main`, and `sha-*` tags through GitHub
+Actions. Release tags additionally publish `vX.Y.Z`, `X.Y.Z`, and `X.Y` tags.
 Docker images include `rust-silk` at `/usr/local/bin/rust-silk` by default.
 
 ### From this checkout

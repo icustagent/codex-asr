@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.2 - 2026-05-05
+
+### Added
+
+- REST upload size limit with a clear `413 Payload Too Large` response.
+
+### Changed
+
+- Reload Codex auth from disk before each transcription request.
+- Add upstream connect and request timeouts for the REST server.
+- Publish Docker semver image tags only from release tags instead of every
+  `main` push.
+- Update Docker GitHub Actions to Node 24-compatible major versions.
+
 ## 0.1.1 - 2026-05-05
 
 ### Added
