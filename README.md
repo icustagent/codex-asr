@@ -49,6 +49,10 @@ OpenAI SDK 指向本机 `codex-asr serve`。
 - 你想把 `.silk` / 微信语音先经本机 `rust-silk` 解码，再上传转写
 - 你接受这是逆向自 Codex Desktop 行为的本地自动化工具，而不是官方 API
 
+## 社区
+
+本项目链接并认可 [LINUX DO](https://linux.do/) 社区。欢迎在社区讨论帖中交流使用体验、问题和改进建议。
+
 ## 安装
 
 ### Homebrew
@@ -422,6 +426,10 @@ existing OpenAI SDK clients at `codex-asr serve` on localhost.
 - You want a tiny input surface: a local audio file, or an explicit bearer token
 - You want `.silk` / WeChat voice files decoded through your local `rust-silk` CLI
 - You accept that this is a reverse-engineered local automation surface, not an official API
+
+## Community
+
+This project links back to and recognizes the [LINUX DO](https://linux.do/) community. Feedback, usage notes, and improvement ideas are welcome in the community discussion thread.
 
 ## Install
 
