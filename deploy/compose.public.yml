@@ -49,9 +49,9 @@ services:
   #   networks:
   #     - codex-asr
 
-volumes:
-  codex_asr_caddy_data:
-  codex_asr_caddy_config:
+# volumes:
+#   codex_asr_caddy_data:
+#   codex_asr_caddy_config:
 
 networks:
   codex-asr:
