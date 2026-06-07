@@ -28,7 +28,7 @@ services:
     volumes:
       - ${CODEX_ASR_AUTH_FILE:?set CODEX_ASR_AUTH_FILE}:/run/secrets/codex_auth:ro
     networks:
-      - codex-asr
+      - codexasr
       - apinetwork
 
   # caddy:
@@ -54,7 +54,7 @@ services:
 #   codex_asr_caddy_config:
 
 networks:
-  codex-asr:
-    name: codex-asr
+  codexasr:
+    name: codexasr
   apinetwork:
     name: apinetwork
