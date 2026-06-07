@@ -28,23 +28,23 @@ services:
       - codex-asr
       - apinetwork
 
-  caddy:
-    image: caddy:2-alpine
-    container_name: codex-asr-caddy
-    restart: unless-stopped
-    depends_on:
-      - codex-asr
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN:?set CODEX_ASR_DOMAIN}
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - codex_asr_caddy_data:/data
-      - codex_asr_caddy_config:/config
-    networks:
-      - codex-asr
+  # caddy:
+  #   image: caddy:2-alpine
+  #   container_name: codex-asr-caddy
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - codex-asr
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   environment:
+  #     CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN:?set CODEX_ASR_DOMAIN}
+  #   volumes:
+  #     - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - codex_asr_caddy_data:/data
+  #     - codex_asr_caddy_config:/config
+  #   networks:
+  #     - codex-asr
 
 volumes:
   codex_asr_caddy_data:
