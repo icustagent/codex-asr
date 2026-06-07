@@ -1,6 +1,7 @@
 services:
   codex-asr:
     image: ghcr.io/wangnov/codex-asr:latest
+    container_name: codex-asr
     restart: unless-stopped
     expose:
       - "8788"
@@ -23,9 +24,13 @@ services:
       - ${CODEX_ASR_CONCURRENCY:-16}
     volumes:
       - ${CODEX_ASR_AUTH_FILE:?set CODEX_ASR_AUTH_FILE}:/run/secrets/codex_auth:ro
+    networks:
+      - codex-asr
+      - apinetwork
 
   caddy:
     image: caddy:2-alpine
+    container_name: codex-asr-caddy
     restart: unless-stopped
     depends_on:
       - codex-asr
@@ -36,9 +41,17 @@ services:
       CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN:?set CODEX_ASR_DOMAIN}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
+      - codex_asr_caddy_data:/data
+      - codex_asr_caddy_config:/config
+    networks:
+      - codex-asr
 
 volumes:
-  caddy_data:
-  caddy_config:
+  codex_asr_caddy_data:
+  codex_asr_caddy_config:
+
+networks:
+  codex-asr:
+    name: codex-asr
+  apinetwork:
+    name: apinetwork
