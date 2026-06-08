@@ -5,8 +5,8 @@ services:
     restart: unless-stopped
     # expose:
     #   - "8788"
-    ports:
-      - "8788:8788"
+    # ports:
+    #   - "8788:8788"
     environment:
       CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN}
       CODEX_ASR_SERVER_KEY: ${CODEX_ASR_SERVER_KEY:?set CODEX_ASR_SERVER_KEY}
