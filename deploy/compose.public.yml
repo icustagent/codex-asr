@@ -3,13 +3,9 @@ services:
     image: ghcr.io/wangnov/codex-asr:latest
     container_name: codex-asr
     restart: unless-stopped
-    # expose:
-    #   - "8788"
-    # ports:
-    #   - "8788:8788"
     environment:
       CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN}
-      CODEX_ASR_SERVER_KEY: ${CODEX_ASR_SERVER_KEY:?set CODEX_ASR_SERVER_KEY}
+      CODEX_ASR_SERVER_KEY: ${CODEX_ASR_SERVER_KEY}
       CODEX_ASR_PROXY: ${CODEX_ASR_PROXY:-}
       CODEX_ASR_SILK_DECODER: ${CODEX_ASR_SILK_DECODER:-/usr/local/bin/rust-silk}
       CODEX_ASR_MAX_UPLOAD_MB: ${CODEX_ASR_MAX_UPLOAD_MB:-50}
@@ -26,32 +22,10 @@ services:
       - --concurrency
       - ${CODEX_ASR_CONCURRENCY:-16}
     volumes:
-      - ${CODEX_ASR_AUTH_FILE:?set CODEX_ASR_AUTH_FILE}:/run/secrets/codex_auth:ro
+      - ${CODEX_ASR_AUTH_FILE}:/run/secrets/codex_auth:ro
     networks:
       - codexasr
       - apinetwork
-
-  # caddy:
-  #   image: caddy:2-alpine
-  #   container_name: codex-asr-caddy
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - codex-asr
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   environment:
-  #     CODEX_ASR_DOMAIN: ${CODEX_ASR_DOMAIN:?set CODEX_ASR_DOMAIN}
-  #   volumes:
-  #     - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-  #     - codex_asr_caddy_data:/data
-  #     - codex_asr_caddy_config:/config
-  #   networks:
-  #     - codex-asr
-
-# volumes:
-#   codex_asr_caddy_data:
-#   codex_asr_caddy_config:
 
 networks:
   codexasr:
